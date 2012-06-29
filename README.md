@@ -23,7 +23,7 @@ Show all info about 1969 version of 'True Grit'
     
 Show best guess for a misspelled name
 
-    imdbtool -t "Ture Git"
+    imdbtool -t "Ture git"
     
 Print movie's rating
 
@@ -51,6 +51,22 @@ Show info by IMDb id
 Print raw JSON or XML data
 
     imdbtool -t Cars -r JSON
+    
+
+### Example to get ratings for all movies in current directory (it will use directory and file names as movie titles):
+
+Save following code to file `get_ratings.sh` (make sure to update the path in line 3):
+
+    ls -1 | 
+    while read title; do
+      res=`python /path/to/imdbtool.py -t "$title"`
+      rating=`echo "$res" | sed -n '/imdbrating/{n;p;}'`
+      restitle=`echo "$res" | sed -n '/title/{n;p;}'`
+      echo "$title  *  $restitle  *  $rating"
+    done
+
+Then execute the saved command to fetch all the ratings: `./get_ratings.sh > ratings.txt`
+(it'll take a while to retrieve all the data). Then you can open the `ratings.txt` file to see the movie ratings, or you can sort the movies by ratings to pick the best one to watch: `< ratings.txt sort -t* -k3 -r`
     
     
 Notes

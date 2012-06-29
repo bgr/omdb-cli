@@ -41,4 +41,6 @@ if args.r:
 
 data = json.loads(result)
 for k in data:
-  print k.lower() + ":\n" + data[k] + "\n"
+  print k.lower() + ":"
+  print data[k].encode('utf-8')
+  print "\n"
