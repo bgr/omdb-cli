@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import argparse
 import urllib
 import sys
@@ -19,7 +21,7 @@ keys = ['t', 'y', 'i', 'plot', 'r', 'tomatoes']
 
 for k in keys:
   if args.__getattribute__(k): params[k] = args.__getattribute__(k)
-  
+
 if len(params) == 0:
   parser.print_usage()
   sys.exit()
@@ -35,7 +37,6 @@ apicall.close()
 if args.r:
   print result
   sys.exit()
-  
 
 # print requested info
 
