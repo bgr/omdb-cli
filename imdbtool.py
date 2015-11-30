@@ -29,7 +29,7 @@ if len(params) == 0:
 
 ### call IMDb API
 
-apicall = urllib.urlopen('http://www.imdbapi.com/?%s' % urllib.urlencode(params))
+apicall = urllib.urlopen('http://www.omdbapi.com/?%s' % urllib.urlencode(params))
 result = apicall.read()
 apicall.close()
 
