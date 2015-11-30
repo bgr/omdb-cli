@@ -85,7 +85,7 @@ On the other hand, IMDb has jumped onto the douchebag bandwagon and issued a cea
 This tool is licensed under [GNU Lesser GPL][lgpl] license.
 
 
-[imdbapi]: http://www.imdbapi.com
+[imdbapi]: http://www.omdbapi.com
 [cyg27]: http://www.tux.org/~mayer/cygwin/python/index.html
 [fetcher]: http://www.mutexes.org/imdb-movie-fetcher/
 [lgpl]: http://www.gnu.org/licenses/lgpl.html
