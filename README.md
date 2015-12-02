@@ -23,7 +23,8 @@ Show all info about season 1 epoisde 1 of firefly
 
 Show all info about season 1 of firefly
 
-    omdbtool -t firefly --season 1    
+    omdbtool -r JSON -t firefly --season 1 
+    At the moment getting info about a full season breaks the script unless you get raw JSON/XML data
 
 Show all info about latest 'True Grit' movie
 
