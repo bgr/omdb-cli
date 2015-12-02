@@ -14,7 +14,7 @@ parser.add_argument("-r", help="Return raw XML/JSON response", choices=['JSON','
 parser.add_argument("--plot", help="Length of plot summary", choices=['short','full'])
 parser.add_argument("--tomatoes", help="Include Rotten Tomatoes data too", action="store_true")
 parser.add_argument("--type", help="movie, series, episode", choices=['movie','series','episode'])
-parser.add_argument("--season", help="Season number", type=int)
+parser.add_argument("--season", help="season number", type=int)
 parser.add_argument("--episode", help="episode number", type=int)
 
 args = parser.parse_args()
@@ -34,13 +34,21 @@ if len(params) == 0:
 
 apicall = urllib.urlopen('https://www.omdbapi.com/?%s' % urllib.urlencode(params))
 result = apicall.read()
+test = urllib.urlencode(params)
+print test
 apicall.close()
 
 # print raw output and exit, if raw output was requested
 if args.r:
   print result
   sys.exit()
-
+if args.season:
+  chars_to_remove = ['"', '[', ']','}']
+  result = result.translate(None, ''.join(chars_to_remove))
+  result = result.replace(',', '\n')
+  result = result.replace('{','\n\n\n')
+  print result
+  sys.exit()
 # print requested info
 
 data = json.loads(result)
@@ -48,3 +56,4 @@ for k in data:
   print k.lower() + ":"
   print data[k].encode('utf-8')
   print "\n"
+
