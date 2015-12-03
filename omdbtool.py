@@ -34,8 +34,6 @@ if len(params) == 0:
 
 apicall = urllib.urlopen('https://www.omdbapi.com/?%s' % urllib.urlencode(params))
 result = apicall.read()
-test = urllib.urlencode(params)
-print test
 apicall.close()
 
 # print raw output and exit, if raw output was requested
