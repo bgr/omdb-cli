@@ -23,8 +23,8 @@ Show all info about season 1 epoisde 1 of firefly
 
 Show all info about season 1 of firefly
 
-    omdbtool -t firefly --season 1 
-    
+    omdbtool -r JSON -t firefly --season 1 
+    At the moment getting info about a full season breaks the script unless you get raw JSON/XML data
 
 Show all info about latest 'True Grit' movie
 
@@ -64,7 +64,17 @@ Show info by IMDb id
 Print raw JSON or XML data
 
     omdbtool -t Cars -r JSON
-    
+
+Print data formated as html
+
+    omdbtool --format html -t cars
+
+Print data formated as markdown 
+
+    omdbtool --format markdown -t cars
+
+
+ 
 
 ### Example to get ratings for all movies in current directory (it will use directory and file names as movie titles):
 
