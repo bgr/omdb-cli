@@ -16,7 +16,7 @@ parser.add_argument("--tomatoes", help="Include Rotten Tomatoes data too", actio
 parser.add_argument("--type", help="movie, series, episode", choices=['movie','series','episode'])
 parser.add_argument("--season", help="season number", type=int)
 parser.add_argument("--episode", help="episode number", type=int)
-parser.add_argument("--format", help="Output formated in html or markdown, leave out for text", choices=['html','markdown'])
+parser.add_argument("--format", help="Output formated in html, markdown or csv, leave out for text", choices=['html','markdown','csv'])
 
 args = parser.parse_args()
 
@@ -41,8 +41,14 @@ apicall.close()
 if args.r:
   print result
   sys.exit()
+if args.format == 'csv':
+  result = result.replace('","', ';')
+  chars_to_remove = ['"','[',']','{','}']
+  result = result.translate(None, ''.join(chars_to_remove))
+  print result
+  sys.exit()
 # formats data as html
-if args.format == 'html':
+elif args.format == 'html':
   result = result.replace('",', '<br>')
   result = result.replace('{','<br><br><br><p>')
   chars_to_remove = ['"','[',']']
@@ -75,3 +81,4 @@ for k in data:
   print k.lower() + ":"
   print data[k].encode('utf-8')
   print "\n"
+
