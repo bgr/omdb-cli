@@ -1,7 +1,10 @@
-*NIX command line tool for retrieving OMDb movie/TV information
+*NIX command line and GUI tool for retrieving OMDb movie/TV information
 ============================================================
 
 ### Usage:
+Inorder to use the you will need to install [Gooey][gooey]
+
+```pip install Gooey```
 
 First set up an alias for the command:
 
@@ -111,3 +114,4 @@ This tool is licensed under [GNU Lesser GPL][lgpl] license.
 [cyg27]: http://www.tux.org/~mayer/cygwin/python/index.html
 [fetcher]: http://www.mutexes.org/imdb-movie-fetcher/
 [lgpl]: http://www.gnu.org/licenses/lgpl.html
+[gooey]: https://github.com/chriskiehl/Gooey
