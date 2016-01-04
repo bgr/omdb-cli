@@ -9,6 +9,10 @@ Inorder to use the gui you will need to install [Gooey][gooey]
 First set up an alias for the command:
 
     alias omdbtool="python /path/to/omdbtool.py"
+    
+Or to for the gui:
+
+    alias omdbtool="python /path/to/omdbtool-gui.py"
 
 ### Some interesting usage examples:
 
