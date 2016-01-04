@@ -2,7 +2,7 @@
 ============================================================
 
 ### Usage:
-Inorder to use the you will need to install [Gooey][gooey]
+Inorder to use the gui you will need to install [Gooey][gooey]
 
 ```pip install Gooey```
 
