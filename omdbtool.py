@@ -1,9 +1,16 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import argparse
-import urllib
 import sys
 import json
+
+try:
+    from urllib.request import urlopen
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlopen, urlencode
+
 
 parser = argparse.ArgumentParser(description='Get OMDb data for a movie')
 
@@ -33,19 +40,19 @@ if len(params) == 0:
 
 ### call OMDb API
 
-apicall = urllib.urlopen('https://www.omdbapi.com/?%s' % urllib.urlencode(params))
+apicall = urlopen('https://www.omdbapi.com/?%s' % urlencode(params))
 result = apicall.read()
 apicall.close()
 
 # print raw output and exit, if raw output was requested
 if args.r:
-  print result
+  print(result)
   sys.exit()
 if args.format == 'csv':
   result = result.replace('","', ';')
   chars_to_remove = ['"','[',']','{','}']
   result = result.translate(None, ''.join(chars_to_remove))
-  print result
+  print(result)
   sys.exit()
 # formats data as html
 elif args.format == 'html':
@@ -54,7 +61,7 @@ elif args.format == 'html':
   chars_to_remove = ['"','[',']']
   result = result.translate(None, ''.join(chars_to_remove))
   result = result.replace('}','</p>')
-  print result
+  print(result)
   sys.exit()
 
 # formats the data as markdown
@@ -63,7 +70,7 @@ if args.format == 'markdown':
   result = result.replace('{','##')
   chars_to_remove = ['"','[',']','}']
   result = result.translate(None, ''.join(chars_to_remove))
-  print result
+  print(result)
   sys.exit()
   
 # Encoding the data from --season option crashs the program this prints the data with out having to encode it
@@ -72,13 +79,13 @@ if args.season:
   result = result.translate(None, ''.join(chars_to_remove))
   result = result.replace(',', '\n')
   result = result.replace('{','\n\n\n')
-  print result
+  print(result)
   sys.exit()
 # print requested info
 
-data = json.loads(result)
+data = json.loads(result.decode('utf-8'))
 for k in data:
-  print k.lower() + ":"
-  print data[k].encode('utf-8')
-  print "\n"
+  print(k.lower() + ":")
+  print(data[k])
+  print("\n")
 
