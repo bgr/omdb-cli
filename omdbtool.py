@@ -120,9 +120,9 @@ if args.season:
     print(result)
     sys.exit()
 
-# print requested info
+# print requested info, sorted so the order of sections is always the same
 data = json.loads(result.decode('utf-8'))
-for k in data:
+for k in sorted(data.keys()):
     print(k.lower() + ":")
     print(data[k])
     print("\n")
