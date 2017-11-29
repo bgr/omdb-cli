@@ -26,6 +26,7 @@ parser.add_argument(
 parser.add_argument(
     "-i",
     help="IMDb movie id")
+
 parser.add_argument(
     "-r",
     help="Return raw XML/JSON response",
@@ -75,7 +76,7 @@ if len(params) == 0:
     sys.exit()
 
 
-### call OMDb API
+# call OMDb API
 
 apicall = urlopen('https://www.omdbapi.com/?%s' % urlencode(params))
 result = apicall.read()
@@ -111,7 +112,7 @@ if args.format == 'markdown':
     sys.exit()
 
 # Encoding the data from --season option crashes the program
-# this prints the data with out having to encode it
+# this prints the data without having to encode it
 if args.season:
     chars_to_remove = ['"', '[', ']', '}']
     result = result.translate(None, ''.join(chars_to_remove))
