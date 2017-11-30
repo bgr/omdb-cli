@@ -167,9 +167,13 @@ def fmt_episodes(ls):
 
 # print requested info
 data = json.loads(result.decode('utf-8'))
-for key in data:
-    val = data[key]
+for key, val in data.items():
     key = key.lower()
+
+    # don't include "response: True" in output
+    if key == 'response' and val:
+        continue
+
     print(key + ":")
     if key == 'ratings':
         s = fmt_ratings(val)
