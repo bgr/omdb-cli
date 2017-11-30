@@ -62,10 +62,16 @@ parser.add_argument(
     help="Output formated in html, markdown or csv, leave out for text",
     choices=['html', 'markdown', 'csv'])
 
+parser.add_argument(
+    "--apikey",
+    help="Your API key")
+
+
 args = parser.parse_args()
 
 params = {}
-keys = ['t', 'y', 'i', 'plot', 'r', 'tomatoes', 'type', 'season', 'episode']
+keys = ['t', 'y', 'i', 'plot', 'r', 'tomatoes', 'type', 'season',
+        'episode', 'apikey']
 
 for k in keys:
     if args.__getattribute__(k):
