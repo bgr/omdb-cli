@@ -36,9 +36,9 @@ Show all info about season 1 episode 1 of 'Firefly'
 
     omdbtool -t firefly --season 1 --episode 1
 
-Show all info about season 1 of 'Firefly'
+Show all info about the series 'Firefly', in JSON format
 
-    omdbtool -r JSON -t firefly --season 1
+    omdbtool -t firefly -r JSON
 
 Show all info about latest 'True Grit' movie
 
@@ -48,11 +48,7 @@ Show all info about 1969 version of 'True Grit'
 
     omdbtool -t "True Grit" -y 1969
 
-Show best guess for a misspelled name
-
-    omdbtool -t "Ture git"
-
-Print movie's rating
+Print movie's rating only
 
     omdbtool -t Cars | sed -n '/^imdbrating/{n;p;}'
 
@@ -75,19 +71,6 @@ Show info by IMDb id
 
     omdbtool -i tt0103064
 
-Print raw JSON or XML data
-
-    omdbtool -t Cars -r JSON
-
-Print data formated as html
-
-    omdbtool --format html -t cars
-
-Print data formated as markdown
-
-    omdbtool --format markdown -t cars
-
-
 
 ### Example to get ratings for all movies in current directory
 
@@ -104,8 +87,12 @@ Save following code to file `get_ratings.sh` (make sure to update the path in li
       echo "$title  *  $restitle  *  $year  *  $rating"
     done
 
-Then execute the saved command to fetch all the ratings: `./get_ratings.sh > ratings.txt`
-(it'll take a while to retrieve all the data). Then you can open the `ratings.txt` file to see the movie ratings, or you can sort the movies by ratings to pick the best one to watch: `< ratings.txt sort -t* -k4 -r`
+then execute the saved command to fetch all the ratings: `./get_ratings.sh > ratings.txt`
+(it'll take a while to retrieve all the data). Then you can open the
+`ratings.txt` file to see the movie ratings, or you can sort the movies by
+ratings to pick the best one to watch: `< ratings.txt sort -t* -k4 -r`.
+
+_(This used to be more useful when the API worked with inexact movie titles)_
 
 
 ## Notes ##
