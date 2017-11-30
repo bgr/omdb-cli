@@ -99,7 +99,7 @@ else:
 
 # call OMDb API
 
-apicall = urlopen('https://www.omdbapi.com/?%s' % urlencode(params))
+apicall = urlopen('https://www.omdbapi.com/?%s' % urlencode(params), timeout=6)
 result = apicall.read()
 apicall.close()
 
