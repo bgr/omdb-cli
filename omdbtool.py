@@ -78,7 +78,7 @@ for k in keys:
         params[k] = args.__getattribute__(k)
 
 if len(params) == 0:
-    parser.print_usage()
+    parser.print_help()
     sys.exit()
 
 
