@@ -2,6 +2,7 @@
 
 from __future__ import print_function
 import argparse
+import os
 import sys
 import json
 
@@ -64,14 +65,16 @@ parser.add_argument(
 
 parser.add_argument(
     "--apikey",
-    help="Your API key")
+    help="Your API key (will try to use env var OMDB_API_KEY if omitted)")
 
 
 args = parser.parse_args()
 
 params = {}
-keys = ['t', 'y', 'i', 'plot', 'r', 'tomatoes', 'type', 'season',
-        'episode', 'apikey']
+keys = ['t', 'y', 'i', 'plot', 'r', 'tomatoes', 'type', 'season', 'episode']
+
+
+# prepare query string keyvals (excluding apikey, which is handled below)
 
 for k in keys:
     if args.__getattribute__(k):
@@ -80,6 +83,18 @@ for k in keys:
 if len(params) == 0:
     parser.print_help()
     sys.exit()
+
+
+# try to get API key, fall back to env var if not passed as argument
+
+if args.__getattribute__('apikey'):
+    params['apikey'] = args.__getattribute__('apikey')
+elif 'OMDB_API_KEY' in os.environ.keys():
+    params['apikey'] = os.environ['OMDB_API_KEY']
+else:
+    print("Error: API key must be passed via --apikey=YOUR_KEY or set "
+          "as OMDB_API_KEY environment variable", file=sys.stderr)
+    sys.exit(1)
 
 
 # call OMDb API
