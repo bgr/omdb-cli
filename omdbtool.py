@@ -132,19 +132,50 @@ if args.format == 'markdown':
     print(result)
     sys.exit()
 
-# Encoding the data from --season option crashes the program
-# this prints the data without having to encode it
-if args.season:
-    chars_to_remove = ['"', '[', ']', '}']
-    result = result.translate(None, ''.join(chars_to_remove))
-    result = result.replace(',', '\n')
-    result = result.replace('{', '\n\n\n')
-    print(result)
-    sys.exit()
+
+# known problematic characters to replace
+char_map = str.maketrans(
+    '–',
+    '-'
+)
+
+
+def fmt(s):
+    # get rid of weird characters in output, which also cause errors on Windows
+    # first use the preferred character mapping for known characters, then fall
+    # back to encode + decode for unexpected ones
+    return (s
+            .translate(char_map)
+            .encode('ascii', errors='replace')
+            .decode('utf-8'))
+
+
+def fmt_ratings(ls):
+    return '\n'.join(['  {}: {}'.format(d['Source'], d['Value']) for d in val])
+
+
+def fmt_single_episode(dct):
+    header = '  {} {}:'.format('Episode', dct['Episode'])
+    epinfo = ['    {}: {}'.format(k, v)
+              for k, v in dct.items() if k != 'Episode']
+    return '\n'.join([header] + epinfo + [""])
+
+
+def fmt_episodes(ls):
+    return '\n'.join(fmt_single_episode(dct) for dct in ls)
+
 
 # print requested info
 data = json.loads(result.decode('utf-8'))
-for k in data:
-    print(k.lower() + ":")
-    print(data[k])
+for key in data:
+    val = data[key]
+    key = key.lower()
+    print(key + ":")
+    if key == 'ratings':
+        s = fmt_ratings(val)
+    elif key == 'episodes':
+        s = fmt_episodes(val)
+    else:
+        s = val
+    print(fmt(s))
     print("\n")
