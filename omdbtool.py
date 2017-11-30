@@ -8,10 +8,17 @@ import sys
 import json
 
 try:
+    # Python 3
     from urllib.request import urlopen
     from urllib.parse import urlencode
+    to_unicode = lambda s: s
+    mk_trans = str.maketrans
 except ImportError:
-    from urllib import urlopen, urlencode
+    # Python 2
+    from urllib2 import urlopen
+    from urllib import urlencode
+    to_unicode = lambda s: unicode(s)  # noqa
+    mk_trans = lambda a, b: {ord(ca): ord(cb) for ca, cb in zip(a, b)}
 
 
 parser = argparse.ArgumentParser(description='Get OMDb data for a movie')
@@ -135,9 +142,9 @@ if args.format == 'markdown':
 
 
 # known problematic characters to replace
-char_map = str.maketrans(
-    '–',
-    '-'
+char_map = mk_trans(
+    u'–',
+    u'-'
 )
 
 
@@ -145,7 +152,7 @@ def fmt(s):
     # get rid of weird characters in output, which also cause errors on Windows
     # first use the preferred character mapping for known characters, then fall
     # back to encode + decode for unexpected ones
-    return (s
+    return (to_unicode(s)
             .translate(char_map)
             .encode('ascii', errors='replace')
             .decode('utf-8'))
